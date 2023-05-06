@@ -1,0 +1,9 @@
+sudo+ssh://zhangchen@10.100.30.11:22/home/zhangchen/anaconda3/bin/python -u /home/zhangchen/zhangchen_workspace/yfcc100m/ttt_timm_version.py
+{'url': 'https://storage.googleapis.com/vit_models/augreg/Ti_16-i21k-300ep-lr_0.001-aug_none-wd_0.03-do_0.0-sd_0.0.npz', 'num_classes': 21843, 'input_size': (3, 224, 224), 'pool_size': None, 'crop_pct': 0.9, 'interpolation': 'bicubic', 'fixed_input_size': True, 'mean': (0.5, 0.5, 0.5), 'std': (0.5, 0.5, 0.5), 'first_conv': 'patch_embed.proj', 'classifier': 'head'}
+torch.Size([1, 197, 192])
+torch.Size([192])
+tensor([ -0.8875,   2.1558,  -0.9873,  -3.3086,  -3.1696,  -0.1245,   0.3829,
+         -3.2711, -16.8503,   3.0883], device='cuda:3',
+       grad_fn=<SliceBackward0>)
+tensor([ 1.6783, -5.3844,  1.7376, -2.0534, -3.6345,  3.2164,  6.3513,  3.7202,
+        -0.3048,  4.0629], device='cuda:3', grad_fn=<SliceBackward0>)
