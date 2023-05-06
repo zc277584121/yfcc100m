@@ -160,13 +160,18 @@ def download_parallel(
         shards = find_meta_shards(indir)
         shard_range = hex_range(shard_start, shard_end)
 
-        shards = list(set(shards) & set(shard_range))
-        # finished_shards = load_finished_shards(outdir)
+        shards = set(set(shards) & set(shard_range))
+        finished_shards = load_finished_shards(outdir)
         # if check:
         #     shards = finished_shards
         # elif not overwrite:
-        #     shards -= finished_shards
-        shards = sorted(shards)
+        finished_shards = set(finished_shards)
+        shards -= finished_shards
+        finished_shards = list(sorted(finished_shards))
+        shards = list(sorted(shards))
+        if len(finished_shards) > 0:
+            print(f'finished_shards from {finished_shards[0]} to {finished_shards[-1]}')
+        print(f'now download shards from {shards[0]} to {shards[-1]}')
 
     downloader = Downloader(
         shards, indir, indir, outdir, kinds, filter_code, processes, threads
@@ -180,8 +185,8 @@ def download_parallel(
     )
     for shard in gen:
         if not check:
-            pass
-            # shard_finished(shard, outdir)
+            # pass
+            shard_finished(shard, outdir)
 
 
 def main():
