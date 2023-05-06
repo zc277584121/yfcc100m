@@ -77,7 +77,10 @@ def extract_one_zip(args, zip_id):
     model_name = args.model_name
     device_id = args.device_id
     batch_size = args.batch_size
-    device = f'cuda:{device_id}'
+    if device_id == '-1':
+        device = 'cpu'
+    else:
+        device = f'cuda:{device_id}'
 
     config = get_pretrained_cfg(model_name)
     # print(config)
