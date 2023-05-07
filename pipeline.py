@@ -1,9 +1,10 @@
+import json
 import os
 
 from download_repair_error import hex_range
 
-pre_start = '51'
-pre_end = '5f'
+pre_start = '50'
+pre_end = '50'
 
 # start = '500'
 # end = '50f'
@@ -21,7 +22,6 @@ print(end_list)
 
 python_interpreter = '/Users/zilliz/zhangchen_workspace/yfcc100m/.yfcc/bin/python'
 for start, end in zip(start_list, end_list):
-
     cmd = f'{python_interpreter} download.py --threads=32 /Users/zilliz/yfcc100m_metadata -o images --start {start} --end {end}'
     print(cmd)
     os.system(cmd)
@@ -30,25 +30,48 @@ for start, end in zip(start_list, end_list):
     print(cmd)
     os.system(cmd)
 
-
     feature_folder = f'features/features_{start[:2]}'
-    print(cmd)
-    os.system(cmd)
 
     cmd = f'mkdir {feature_folder}'
     print(cmd)
     os.system(cmd)
-    cmd = f'mv features/features/{start[:2]}* {feature_folder}'
+    cmd = f'mv features/features_{start[:2]}*.hdf5 {feature_folder}'
     print(cmd)
     os.system(cmd)
 
     cmd = f'kaggle datasets init -p {feature_folder}'
     print(cmd)
     os.system(cmd)
+    
+    
+    
+
+    # dataset-metadata.json
+    title = f'yfcc100m-{start[:2]}'
+    content_dict = {
+        "title": f'{title}',
+        "id": f"chenzhangdaydayup/{title}",
+        "licenses": [
+            {
+                "name": "CC0-1.0"
+            }
+        ]
+    }
+    content_str = json.dumps(content_dict, indent=2)
+    # print(content_str)
+    # print(f'{feature_folder}/dataset-metadata.json')
+    with open(f'{feature_folder}/dataset-metadata.json', 'w') as f:
+        f.write(content_str)
+        
+        
+        
+        
     cmd = f'kaggle datasets create -p {feature_folder}'
     print(cmd)
     os.system(cmd)
-
+    
+    
+    
 
     # rm
     cmd = f'rm images/{start[:2]}*.zip'
