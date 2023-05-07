@@ -3,8 +3,8 @@ import os
 
 from download_repair_error import hex_range
 
-pre_start = '50'
-pre_end = '50'
+pre_start = '52'
+pre_end = '5f'
 
 # start = '500'
 # end = '50f'
@@ -33,8 +33,9 @@ for start, end in zip(start_list, end_list):
     feature_folder = f'features/features_{start[:2]}'
 
     cmd = f'mkdir {feature_folder}'
-    print(cmd)
-    os.system(cmd)
+    if not os.path.exists(feature_folder):
+        print(cmd)
+        os.system(cmd)
     cmd = f'mv features/features_{start[:2]}*.hdf5 {feature_folder}'
     print(cmd)
     os.system(cmd)
